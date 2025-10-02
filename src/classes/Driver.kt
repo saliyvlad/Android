@@ -1,39 +1,37 @@
+package classes
+
+import interfaces.Movable
 import kotlin.random.Random
 
 class Driver(
     fullName: String,
     age: Int,
     currentSpeed: Double,
-    private var vehicleType: String,
-    private var direction: Double = Math.PI / 4
+    var category: String,
+    var car: String,
 ) : Human(fullName, age, currentSpeed) {
 
+    private var direction: Double = Random.nextDouble(0.0, 2 * Math.PI)
+
     override fun move() {
-        val speedVariation = Random.nextDouble(0.8, 1.2)
-        val actualSpeed = getCurrentSpeed() * speedVariation
+        val speedVariation = Random.nextDouble(0.9, 1.1)
+        currentSpeed = (currentSpeed * speedVariation).coerceIn(0.1, 200.0)
 
-        val directionVariation = Random.nextDouble(-0.17, 0.17)
-        direction += directionVariation
+        val directionVariation = Random.nextDouble(-0.1, 0.1)
+        direction = (direction + directionVariation) % (2 * Math.PI)
 
-        if (direction < 0) direction += 2 * Math.PI
-        if (direction >= 2 * Math.PI) direction -= 2 * Math.PI
+        x += currentSpeed * Math.cos(direction)
+        y += currentSpeed * Math.sin(direction)
 
-        val newX = getX() + actualSpeed * Math.cos(direction)
-        val newY = getY() + actualSpeed * Math.sin(direction)
-
-        setPosition(newX, newY)
-        setCurrentSpeed(actualSpeed.coerceAtLeast(0.1))
+        println("Водитель ${getName()} $age лет едет на $car со скоростью ${"%.1f".format(currentSpeed)} км/ч " +
+                "(категория $category), текущая позиция ${getPosition()}")
     }
 
-    fun getVehicleType(): String = vehicleType
-    fun setVehicleType(type: String) { vehicleType = type }
-
-    fun getDirection(): Double = direction
-    fun setDirection(newDirection: Double) { direction = newDirection % (2 * Math.PI) }
+    fun getDirectionInDegrees(): Double {
+        return Math.toDegrees(direction)
+    }
 
     override fun toString(): String {
-        return "${getFullName()} (возраст: ${getAge()}, водитель $vehicleType, " +
-                "скорость: ${String.format("%.2f", getCurrentSpeed())}, " +
-                "позиция: ${getPosition()}, направление: ${String.format("%.1f", Math.toDegrees(direction))}°)"
+        return "Водитель ${getName()} (возраст: $age, автомобиль: $car, категория: $category)"
     }
 }

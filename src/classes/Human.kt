@@ -1,41 +1,24 @@
+package classes
+
+import interfaces.Movable
 import kotlin.random.Random
 
 open class Human(
-    private var fullName: String,
-    private var age: Int,
-    private var currentSpeed: Double
-) {
-    private var x: Double = 0.0
-    private var y: Double = 0.0
+    protected var fullName: String,
+    var age: Int,
+    override var currentSpeed: Double
+) : Movable {
 
-    fun getFullName(): String = fullName
-    fun getAge(): Int = age
-    fun getCurrentSpeed(): Double = currentSpeed
-    fun getX(): Double = x
-    fun getY(): Double = y
+    override var x: Double = 0.0
+    override var y: Double = 0.0
 
-    fun setFullName(newName: String) {
+    fun getName(): String = fullName
+
+    fun setName(newName: String) {
         fullName = newName
     }
 
-    fun setAge(newAge: Int) {
-        if (newAge >= 0) {
-            age = newAge
-        }
-    }
-
-    fun setCurrentSpeed(newSpeed: Double) {
-        if (newSpeed >= 0) {
-            currentSpeed = newSpeed
-        }
-    }
-
-    protected fun setPosition(newX: Double, newY: Double) {
-        x = newX
-        y = newY
-    }
-
-    open fun move() {
+    override fun move() {
         val direction = Random.nextDouble(0.0, 2 * Math.PI)
 
         val stepLength = currentSpeed * Random.nextDouble(0.5, 1.5)
@@ -46,13 +29,15 @@ open class Human(
         currentSpeed *= Random.nextDouble(0.8, 1.2)
 
         if (currentSpeed < 0.1) currentSpeed = 0.1
+
+        println("Пешеход $fullName $age лет движется со скоростью ${"%.1f".format(currentSpeed)}, текущая позиция ${getPosition()}")
     }
 
-    fun getPosition(): String {
-        return "(${String.format("%.2f", x)}, ${String.format("%.2f", y)})"
+    override fun getPosition(): String {
+        return "(${"%.1f".format(x)}, ${"%.1f".format(y)})"
     }
 
     override fun toString(): String {
-        return "$fullName (возраст: $age, скорость: ${String.format("%.2f", currentSpeed)}, позиция: ${getPosition()})"
+        return "Пешеход $fullName (возраст: $age, скорость: ${"%.1f".format(currentSpeed)})"
     }
 }

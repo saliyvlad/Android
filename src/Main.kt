@@ -1,85 +1,70 @@
-import kotlin.concurrent.thread
+import interfaces.Movable
+import classes.Human
+import classes.Driver
 
 fun main() {
-    println("=== Параллельная симуляция движения людей и водителей ===\n")
+    println("=== ПАРАЛЛЕЛЬНАЯ СИМУЛЯЦИЯ ДВИЖЕНИЯ ===\n")
 
-    val humans = listOf(
-        Human("Иванов Иван Иванович", 25, 1.5),
-        Human("Петров Петр Петрович", 30, 2.0),
-        Human("Сидорова Анна Сергеевна", 28, 1.2),
-        Human("Козлов Алексей Владимирович", 35, 1.8),
-        Human("Иванов Иван Иванович", 25, 1.5),
-        Human("Петров Петр Петрович", 30, 2.0),
-        Human("Сидорова Анна Сергеевна", 28, 1.2),
-        Human("Козлов Алексей Владимирович", 35, 1.8),
-        Human("Иванов Иван Иванович", 25, 1.5),
-        Human("Петров Петр Петрович", 30, 2.0),
+    val movables: List<Movable> = listOf(
+        Human("Иван Иванов", 25, 2.5),
+        Human("Петр Петров", 30, 3.0),
+        Human("Анна Сидорова", 22, 1.8),
+        Driver("Мария Николаева", 35, 60.0, "B", "Mercedes"),
+        Driver("Алексей Козлов", 28, 80.0, "C", "Volvo")
     )
 
-    val driver = Driver(
-        "Николаева Мария Дмитриевна",
-        32,
-        3.5,
-        "автомобиля",
-        Math.PI / 2
-    )
-
-    println("Начальные позиции:")
-    humans.forEach { println("Пешеход: $it") }
-    println("Водитель: $driver")
-    println()
-
-    val simulationTime = 8
+    println("Начало симуляции. Участники:")
+    movables.forEach {
+        when (it) {
+            is Human -> println("${it.getName()} - ${it.age} лет")
+            is Driver -> println("${it.getName()} - ${it.age} лет, водитель ${it.car}")
+        }
+    }
+    println("\n=== НАЧАЛО ДВИЖЕНИЯ ===\n")
 
     val threads = mutableListOf<Thread>()
 
-    humans.forEachIndexed { index, human ->
-        val thread = thread {
-            println("Поток пешехода ${index + 1} запущен")
-            for (second in 1..simulationTime) {
-                human.move()
-                Thread.sleep(100)
+    movables.forEachIndexed { index, movable ->
+        val thread = Thread {
+            val name = when (movable) {
+                is Human -> "Пешеход ${movable.getName()}"
+                is Driver -> "Водитель ${movable.getName()}"
+                else -> "Объект $index"
             }
-            println("Поток пешехода ${index + 1} завершен")
+
+            println("▶Запущен поток: $name")
+
+            repeat(5) { step ->
+                movable.move()
+                Thread.sleep(1000)
+            }
+
+            println("Завершен поток: $name")
         }
+
         threads.add(thread)
-    }
-
-    val driverThread = thread {
-        println("Поток водителя запущен")
-        for (second in 1..simulationTime) {
-            driver.move()
-            Thread.sleep(100)
-        }
-        println("Поток водителя завершен")
-    }
-    threads.add(driverThread)
-
-    for (second in 1..simulationTime) {
-        Thread.sleep(1000) // Ждем 1 секунду
-
-        println("\n--- Секунда $second ---")
-        humans.forEachIndexed { index, human ->
-            println("Пешеход ${index + 1}: ${human.getFullName()} -> ${human.getPosition()}")
-        }
-        println("Водитель: ${driver.getFullName()} -> ${driver.getPosition()}")
+        thread.start()
     }
 
     threads.forEach { it.join() }
 
-    println("\n=== Финальные позиции ===")
-    humans.forEach { println("Пешеход: $it") }
-    println("Водитель: $driver")
+    println("\n=== ФИНАЛЬНЫЕ РЕЗУЛЬТАТЫ ===")
+    movables.forEach { movable ->
 
-    println("\n=== Статистика движения ===")
-    humans.forEach { human ->
-        val distance = Math.sqrt(human.getX() * human.getX() + human.getY() * human.getY())
-        println("${human.getFullName()} прошел ${String.format("%.2f", distance)} единиц")
+        val distance = Math.sqrt(movable.x * movable.x + movable.y * movable.y)
+
+        when (movable) {
+            is Human -> {
+                println("${movable.getName()} (${movable.age} лет)")
+                println("   Пройдено: ${"%.1f".format(distance)} метров")
+            }
+            is Driver -> {
+                println("${movable.getName()} (${movable.age} лет, ${movable.car})")
+                println("   Проехал: ${"%.1f".format(distance)} км")
+            }
+        }
+        println("   Финальная позиция: ${movable.getPosition()}")
+        println("   Финальная скорость: ${"%.1f".format(movable.currentSpeed)} ${if (movable is Driver) "км/ч" else "м/с"}")
+        println()
     }
-    val driverDistance = Math.sqrt(driver.getX() * driver.getX() + driver.getY() * driver.getY())
-    println("${driver.getFullName()} проехал ${String.format("%.2f", driverDistance)} единиц")
-
-    println("\n=== Анализ траекторий ===")
-    println("Пешеходы: случайное блуждание (Random Walk)")
-    println("Водитель: прямолинейное движение с небольшими отклонениями")
 }

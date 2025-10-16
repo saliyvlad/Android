@@ -257,3 +257,149 @@ fun main() {
     movables.forEach { it.move() }
 }
 ```
+
+
+
+
+
+
+
+
+
+
+
+# **Разница между первичным и вторичным конструктором в Kotlin**
+
+## **1. Количество**
+
+### **Первичный конструктор:**
+- **Только один** на класс
+- Нельзя иметь несколько первичных конструкторов
+
+### **Вторичный конструктор:**
+- **Неограниченное количество**
+- Можно определить несколько конструкторов с разными параметрами
+
+```kotlin
+class Person(val name: String, var age: Int) {  // ← один первичный
+    
+    constructor(name: String) : this(name, 0)   // ← вторичный 1
+    
+    constructor() : this("Unknown")             // ← вторичный 2
+    
+    constructor(age: Int) : this("Anonymous", age)  // ← вторичный 3
+}
+```
+
+## **2. Объявление свойств**
+
+### **Первичный конструктор:**
+```kotlin
+// Может объявлять свойства через val/var
+class Person(
+    val name: String,      // ← свойство только для чтения
+    var age: Int,          // ← изменяемое свойство  
+    country: String        // ← параметр (не свойство)
+) {
+    // name и age доступны как свойства
+    fun printInfo() = println("$name, $age лет")
+}
+```
+
+### **Вторичный конструктор:**
+```kotlin
+class Person {
+    val name: String
+    var age: Int
+    
+    // НЕ может объявлять свойства
+    constructor(name: String, age: Int) {
+        this.name = name  // ← присваивание существующему свойству
+        this.age = age
+    }
+}
+```
+
+## **3. Блок кода и логика**
+
+### **Первичный конструктор:**
+```kotlin
+class Person(val name: String, age: Int) {
+    // НЕТ блока кода у самого конструктора
+    // Используются блоки init для логики инициализации
+    
+    init {
+        require(age >= 0) { "Возраст не может быть отрицательным" }
+        println("Создан человек: $name")
+    }
+    
+    init {
+        // Может быть несколько блоков init
+        println("Второй блок инициализации")
+    }
+}
+```
+
+### **Вторичный конструктор:**
+```kotlin
+class Person {
+    val name: String
+    var age: Int
+    
+    constructor(name: String, age: Int) {
+        // ЕСТЬ блок кода { }
+        this.name = name
+        this.age = age
+        
+        // Логика может быть прямо в конструкторе
+        if (age < 0) throw IllegalArgumentException("Возраст не может быть отрицательным")
+        println("Создан человек: $name")
+    }
+}
+```
+
+## **3. Вызов других конструкторов**
+
+### **Первичный конструктор:**
+- **Не может** вызывать другие конструкторы
+
+### **Вторичный конструктор:**
+```kotlin
+open class Human(val name: String)
+
+class Person : Human {
+    var age: Int
+    
+    // ДОЛЖЕН вызвать первичный конструктор через this()
+    constructor(name: String, age: Int) : this(name) {
+        this.age = age
+    }
+    
+}
+```
+
+## **4. Порядок выполнения**
+
+### **При создании объекта:**
+```kotlin
+class Person(val name: String, var age: Int) {
+    init {
+        println("Блок init 1")
+    }
+    
+    constructor(n: String) : this(n, 0) {
+        println("Вторичный конструктор")
+    }
+    
+    init {
+        println("Блок init 2")
+    }
+}
+
+// При вызове: Person("Иван")
+// Порядок выполнения:
+// 1. Блок init 1
+// 2. Блок init 2  
+// 3. Вторичный конструктор
+```
+

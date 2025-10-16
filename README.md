@@ -138,12 +138,13 @@ interface Movable {
 ```kotlin
 // Driver.kt
 class Driver(
-    fullName: String,           
-    age: Int,                    
-    currentSpeed: Double,       
-    var category: String,       
-    var car: String,            
-) : Human(fullName, age, currentSpeed) {  
+    fullName: String,           // параметр конструктора
+    age: Int,                   // параметр конструктора  
+    currentSpeed: Double,       // параметр конструктора
+    var category: String,       // свойство (объявление + параметр)
+    var car: String,            // свойство (объявление + параметр)
+) : Human(fullName, age, currentSpeed) {  // вызов конструктора родителя
+    // ...
 }
 ```
 
@@ -157,7 +158,8 @@ class Driver(
     currentSpeed: Double,
     var category: String,
     var car: String,
-) : Human(fullName, age, currentSpeed) {  
+) : Human(fullName, age, currentSpeed) {  // ← вызов родительского конструктора
+    // ...
 }
 ```
 
@@ -167,12 +169,14 @@ class Driver(
 ```kotlin
 // Main.kt
 fun main() {
-    Human("Иван Иванов", 25, 2.5)           
-    Human("Петр Петров", 30, 3.0)           
-    Human("Анна Сидорова", 22, 1.8)         
-  
-    Driver("Мария Николаева", 35, 60.0, "B", "Mercedes")    
-    Driver("Алексей Козлов", 28, 80.0, "C", "Volvo")        
+    // Создание объектов Human через конструктор
+    Human("Иван Иванов", 25, 2.5)           // 3 параметра
+    Human("Петр Петров", 30, 3.0)           // 3 параметра
+    Human("Анна Сидорова", 22, 1.8)         // 3 параметра
+
+    // Создание объектов Driver через конструктор  
+    Driver("Мария Николаева", 35, 60.0, "B", "Mercedes")    // 5 параметров
+    Driver("Алексей Козлов", 28, 80.0, "C", "Volvo")        // 5 параметров
 }
 ```
 
@@ -183,14 +187,21 @@ open class Human(
     var age: Int,
     override var currentSpeed: Double
 ) : Movable {
+
     override var x: Double = 0.0
     override var y: Double = 0.0
+
+    // ВТОРИЧНЫЙ КОНСТРУКТОР - только имя и возраст
     constructor(name: String, age: Int) : this(name, age, 1.5) {
         println("Создан пешеход $name с стандартной скоростью 1.5 м/с")
     }
+
+    // ВТОРИЧНЫЙ КОНСТРУКТОР - только имя
     constructor(name: String) : this(name, 25, 1.5) {
         println("Создан пешеход $name с стандартными параметрами")
     }
+
+    // ... остальные методы класса
 }
 ```
 
@@ -206,15 +217,20 @@ class Driver(
 ) : Human(fullName, age, currentSpeed) {
 
     private var direction: Double = Random.nextDouble(0.0, 2 * Math.PI)
+
+    // ВТОРИЧНЫЙ КОНСТРУКТОР - без указания скорости
     constructor(name: String, age: Int, category: String, car: String) 
         : this(name, age, 60.0, category, car) {
         println("Водитель $name создан со стандартной скоростью 60 км/ч")
     }
+
+    // ВТОРИЧНЫЙ КОНСТРУКТОР - только имя и автомобиль
     constructor(name: String, car: String) 
         : this(name, 30, 60.0, "B", car) {
         println("Водитель $name создан со стандартными параметрами")
     }
 
+    // ... остальные методы класса
 }
 ```
 
@@ -223,14 +239,21 @@ class Driver(
 ```kotlin
 fun main() {
     println("=== РАЗНЫЕ КОНСТРУКТОРЫ ===")
+
+    // Использование первичных конструкторов
     val human1 = Human("Иван Иванов", 25, 2.5)
     val driver1 = Driver("Мария Николаева", 35, 60.0, "B", "Mercedes")
-    val human2 = Human("Петр Петров", 30)          
-    val human3 = Human("Анна Сидорова")            
-    val driver2 = Driver("Алексей Козлов", 28, "C", "Volvo")  
-    val driver3 = Driver("Сергей Смирнов", "Toyota")          
+
+    // Использование ВТОРИЧНЫХ конструкторов
+    val human2 = Human("Петр Петров", 30)          // ← вторичный конструктор
+    val human3 = Human("Анна Сидорова")            // ← вторичный конструктор
+    
+    val driver2 = Driver("Алексей Козлов", 28, "C", "Volvo")  // ← вторичный
+    val driver3 = Driver("Сергей Смирнов", "Toyota")          // ← вторичный
+
     println("\n=== ДВИЖЕНИЕ ===")
     val movables = listOf(human1, human2, human3, driver1, driver2, driver3)
+    
     movables.forEach { it.move() }
 }
 ```

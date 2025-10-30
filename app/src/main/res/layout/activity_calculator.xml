@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="160dp" />
 
-    <!-- TextView для отображения ввода и результата -->
+    
     <TextView
         android:id="@+id/tvDisplay"
         android:layout_width="match_parent"
@@ -29,14 +29,14 @@
         android:scrollHorizontally="true"
         android:typeface="monospace" />
 
-    <!-- Сетка для кнопок калькулятора -->
+    
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:columnCount="4"
         android:rowCount="5">
 
-        <!-- Первый ряд -->
+        
         <Button
             android:id="@+id/btn7"
             android:layout_width="0dp"
@@ -74,7 +74,7 @@
             android:textSize="18sp"
             android:backgroundTint="#FF9800" />
 
-        <!-- Второй ряд -->
+        
         <Button
             android:id="@+id/btn4"
             android:layout_width="0dp"
@@ -112,7 +112,7 @@
             android:textSize="18sp"
             android:backgroundTint="#FF9800" />
 
-        <!-- Третий ряд -->
+        
         <Button
             android:id="@+id/btn1"
             android:layout_width="0dp"
@@ -150,7 +150,7 @@
             android:textSize="18sp"
             android:backgroundTint="#FF9800" />
 
-        <!-- Четвертый ряд -->
+        
         <Button
             android:id="@+id/btn0"
             android:layout_width="0dp"

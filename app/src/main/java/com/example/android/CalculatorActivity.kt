@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.graphics.Color
 
 class CalculatorActivity : Activity() {
 
@@ -44,9 +45,16 @@ class CalculatorActivity : Activity() {
         findViewById<Button>(R.id.btnMultiply).setOnClickListener { appendOperator("*") }
         findViewById<Button>(R.id.btnDivide).setOnClickListener { appendOperator("/") }
     }
-
+    private fun setBackColor(){
+        findViewById<Button>(R.id.btnEquals).setBackgroundColor(0xFFFF0000.toInt())
+        findViewById<Button>(R.id.btn7).setBackgroundColor(0xFFFF0000.toInt())
+        findViewById<Button>(R.id.btnClear).setBackgroundColor(0xFFFF0000.toInt())
+    }
     private fun setupControlButtons() {
-        findViewById<Button>(R.id.btnEquals).setOnClickListener { calculateResult() }
+        findViewById<Button>(R.id.btnEquals).setOnClickListener{
+            setBackColor()
+            calculateResult()
+        }
         findViewById<Button>(R.id.btnClear).setOnClickListener { clearCalculator() }
     }
 
@@ -61,7 +69,7 @@ class CalculatorActivity : Activity() {
     private fun appendOperator(operator: String) {
         if (currentInput.isNotEmpty() && !hasOperator) {
             val lastChar = currentInput.last()
-            if (lastChar !in setOf('+', '-', '*', '/')) {
+            if (lastChar !in listOf('+', '-', '*', '/')) {
                 currentInput.append(operator)
                 hasOperator = true
                 updateDisplay()
@@ -84,14 +92,14 @@ class CalculatorActivity : Activity() {
             hasOperator = false
             updateDisplay()
         } catch (e: Exception) {
-            tvDisplay.text = "Error"
+            tvDisplay.text = "Ошибка"
             currentInput.clear()
             hasOperator = false
         }
     }
 
     private fun evaluateExpression(expression: String): Double {
-        val operators = setOf('+', '-', '*', '/')
+        val operators = listOf('+', '-', '*', '/')
         var operatorIndex = -1
         var operatorChar = ' '
 
@@ -113,10 +121,10 @@ class CalculatorActivity : Activity() {
             '-' -> leftOperand - rightOperand
             '*' -> leftOperand * rightOperand
             '/' -> {
-                if (rightOperand == 0.0) throw ArithmeticException("Division by zero")
+                if (rightOperand == 0.0) throw ArithmeticException("Ноль в знаменателе")
                 leftOperand / rightOperand
             }
-            else -> throw IllegalArgumentException("Unknown operator")
+            else -> throw IllegalArgumentException("Неизвестный оператор")
         }
     }
 
@@ -138,3 +146,16 @@ class CalculatorActivity : Activity() {
         tvDisplay.text = if (currentInput.isEmpty()) "0" else currentInput.toString()
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

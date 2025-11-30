@@ -1,6 +1,10 @@
+import android.graphics.Color
+import android.widget.Button
 import interfaces.Movable
 import classes.Human
 import classes.Driver
+import com.example.android.R
+
 fun main() {
     val movables: List<Movable> = listOf(
         Human("Иван Иванов", 25, 2.5),
@@ -18,3 +22,14 @@ fun main() {
         }.start()
     }
 }
+//private fun setBackGroundColor(){
+//    val randomColor = Color.rgb(
+//        (0..255).random(),
+//        (0..255).random(),
+//        (0..255).random()
+//    )
+//    val colorEq = findViewById<Button>(R.id.btnEquals)
+//    colorEq.setBackgroundColor(randomColor)
+////        (0xFFFF0000.toInt())
+//
+//}

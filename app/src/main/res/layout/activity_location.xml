@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#f5f5f5">
+
+    <!-- Заголовок -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Определение местоположения"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Кнопки управления -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="20dp">
+
+        <Button
+            android:id="@+id/btnGetLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Получить местоположение"
+            android:textSize="16sp"
+            android:layout_marginEnd="10dp" />
+
+        <Button
+            android:id="@+id/btnStartUpdates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Автообновление"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <!-- Статус -->
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Нажмите кнопку для получения местоположения"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:background="@android:color/white"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Данные местоположения -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:padding="16dp"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Данные местоположения:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:id="@+id/tvLatitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Широта: -"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvLongitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Долгота: -"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvAltitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Высота: -"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Время: -"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvAccuracy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Точность: -"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <!-- История местоположений -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="История местоположений:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tvLocationHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:padding="16dp"
+            android:text="История будет отображаться здесь..."
+            android:textSize="14sp" />
+
+    </ScrollView>
+
+</LinearLayout>

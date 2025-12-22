@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.android"
-        minSdk = 24
+        minSdk = 30
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -53,7 +53,7 @@ dependencies {
 //    implementation("com.google.android.gms:play-services-location:21.0.1")
 //    implementation("com.google.code.gson:gson:2.10.1")
 
-
+    implementation("androidx.core:core-ktx:1.12.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

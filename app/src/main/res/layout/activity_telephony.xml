@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tvNetworkInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Нажмите кнопку..."
+            android:textSize="14sp"
+            android:fontFamily="monospace" />
+
+
+
+    </ScrollView>
+    <Button
+        android:id="@+id/btnFetchData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Получить данные о сети" />
+</LinearLayout>

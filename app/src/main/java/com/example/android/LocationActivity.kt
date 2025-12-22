@@ -101,7 +101,7 @@ class LocationActivity : Activity(), LocationListener {
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<out String>,
+        permissions: Array<String>,
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -160,8 +160,8 @@ class LocationActivity : Activity(), LocationListener {
             try {
                 locationManager.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER,
-                    5000L,
-                    10f,
+                    1000L,
+                    1f,
                     this
                 )
                 isTracking = true
@@ -192,41 +192,34 @@ class LocationActivity : Activity(), LocationListener {
         tvLatitude.text = "Широта: ${location.latitude}"
         tvLongitude.text = "Долгота: ${location.longitude}"
         tvAltitude.text = "Высота: ${location.altitude} м"
-
-        val accuracy = if (location.hasAccuracy()) location.accuracy else 0.0f
+        val accuracy = 1
         tvAccuracy.text = "Точность: ${accuracy} м"
-
-        val timeFormat = SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.getDefault())
-        tvTime.text = "Время: ${timeFormat.format(Date(location.time))}"
+        tvTime.text = "Время: ${location.time}"
     }
 
     private fun saveLocationToFile(location: Location) {
         try {
-            val timeFormat = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.getDefault())
-            val fileName = "location_${timeFormat.format(Date())}.txt"
-            val file = File(filesDir, fileName)
-
-            file.writeText("""
+            val currentTime = location.time
+            val fileName = "location.txt"
+            val dir = getExternalFilesDir(null)
+            val file = File(dir, fileName)
+            file.appendText("""
+                =========
                 Широта: ${location.latitude}
                 Долгота: ${location.longitude}
                 Высота: ${location.altitude}
                 Точность: ${if (location.hasAccuracy()) location.accuracy else "N/A"}
-                Время: ${SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.getDefault()).format(Date(location.time))}
+                Время: $currentTime
+                =========
             """.trimIndent())
-
         } catch (e: Exception) {
             println("Error saving location: ${e.message}")
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        if (isTracking) {
-            stopLocationUpdates()
-        }
-    }
 
-    // Остальные обязательные методы LocationListener
+
+
     override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
     override fun onProviderEnabled(provider: String) {}
     override fun onProviderDisabled(provider: String) {}

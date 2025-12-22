@@ -6,7 +6,7 @@
     android:padding="16dp"
     android:background="#f5f5f5">
 
-    <!-- Заголовок -->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         android:gravity="center"
         android:layout_marginBottom="20dp" />
 
-    <!-- Текущий трек -->
+
     <TextView
         android:id="@+id/tvCurrentTrack"
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
         android:padding="10dp"
         android:background="@android:color/white"
         android:layout_marginBottom="10dp" />
-    <!-- Статус разрешений -->
+
     <TextView
         android:id="@+id/tvStatus"
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
         android:background="#E3F2FD"
         android:layout_marginBottom="10dp" />
 
-    <!-- Прогресс трека -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
 
     </LinearLayout>
 
-    <!-- Громкость -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
 
     </LinearLayout>
 
-    <!-- Кнопки управления -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -128,7 +128,7 @@
 
     </LinearLayout>
 
-    <!-- Список треков -->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,135 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="#f5f5f5">
+    android:background="#F5F5F5"
+    tools:context=".Location">
 
+<TextView
+android:id="@+id/textView4"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Широта"
+android:textColor="#333333"
+android:textSize="20sp"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toStartOf="@+id/TextLat"
+app:layout_constraintHorizontal_bias="0.95"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.131" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Определение местоположения"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginBottom="20dp" />
+<TextView
+android:id="@+id/textView5"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Долгота"
+android:textColor="#333333"
+android:textSize="20sp"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toStartOf="@+id/TextLon"
+app:layout_constraintHorizontal_bias="0.95"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.237" />
 
+<TextView
+android:id="@+id/textView6"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Высота"
+android:textColor="#333333"
+android:textSize="20sp"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toStartOf="@+id/TextAlt"
+app:layout_constraintHorizontal_bias="0.95"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.331" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="20dp">
+<TextView
+android:id="@+id/textView7"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Текущее время"
+android:textColor="#333333"
+android:textSize="20sp"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toStartOf="@+id/textCurTime"
+app:layout_constraintHorizontal_bias="0.95"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.465" />
 
-        <Button
-            android:id="@+id/btnGetLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Получить местоположение"
-            android:textSize="16sp"
-            android:layout_marginEnd="10dp" />
+<TextView
+android:id="@+id/TextLat"
+android:layout_width="160dp"
+android:layout_height="48dp"
+android:background="@android:color/white"
+android:gravity="center_vertical|end"
+android:padding="12dp"
+android:textColor="#000000"
+android:textSize="18sp"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.8"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.131" />
 
-        <Button
-            android:id="@+id/btnStartUpdates"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Автообновление"
-            android:textSize="16sp" />
+<TextView
+android:id="@+id/TextLon"
+android:layout_width="160dp"
+android:layout_height="48dp"
+android:background="@android:color/white"
+android:gravity="center_vertical|end"
+android:padding="12dp"
+android:textColor="#000000"
+android:textSize="18sp"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.8"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.237" />
 
-    </LinearLayout>
+<TextView
+android:id="@+id/TextAlt"
+android:layout_width="160dp"
+android:layout_height="48dp"
+android:background="@android:color/white"
+android:gravity="center_vertical|end"
+android:padding="12dp"
+android:textColor="#000000"
+android:textSize="18sp"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.8"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.331" />
 
+<TextView
+android:id="@+id/textCurTime"
+android:layout_width="160dp"
+android:layout_height="48dp"
+android:background="@android:color/white"
+android:gravity="center_vertical|end"
+android:padding="12dp"
+android:textColor="#000000"
+android:textSize="18sp"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.8"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.465" />
 
-    <TextView
-        android:id="@+id/tvStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Нажмите кнопку для получения местоположения"
-        android:textSize="16sp"
-        android:gravity="center"
-        android:padding="10dp"
-        android:background="@android:color/white"
-        android:layout_marginBottom="20dp" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@android:color/white"
-        android:padding="16dp"
-        android:layout_marginBottom="20dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Данные местоположения:"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp" />
-
-        <TextView
-            android:id="@+id/tvLatitude"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Широта: -"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tvLongitude"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Долгота: -"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tvAltitude"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Высота: -"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tvTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Время: -"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tvAccuracy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Точность: -"
-            android:textSize="16sp" />
-
-    </LinearLayout>
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="История местоположений:"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="10dp" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <TextView
-            android:id="@+id/tvLocationHistory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:padding="16dp"
-            android:text="История будет отображаться здесь..."
-            android:textSize="14sp" />
-
-    </ScrollView>
-
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>

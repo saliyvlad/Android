@@ -159,26 +159,19 @@ class Location : LocationListener, AppCompatActivity() {
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
     }
     override fun onLocationChanged(location: android.location.Location) {
-        // Обновление UI
         tvLat.text = location.latitude.toString()
         tvLon.text = location.longitude.toString()
         tvAlt.text = location.altitude.toString()
         tvTime.text = location.time.toString()
 
-        // === ВАЖНО: Сохраняем данные в общее хранилище ===
         LocationDataStore.latitude = location.latitude
         LocationDataStore.longitude = location.longitude
         LocationDataStore.altitude = location.altitude
-        // Форматируем время в читаемый вид
         val sdf = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.getDefault())
         LocationDataStore.timestamp = sdf.format(java.util.Date(location.time))
-        // ===============================================
-
-        // Сохранение в файл (твой старый код)
         val file = File("/storage/emulated/0/Download/", "locations.json")
         CurrentLoc(location.latitude, location.longitude, location.altitude, location.time).saveInFile(file, this)
 
-        // Лог для отладки
         android.util.Log.d("LOCATION_UPDATE", "New coords saved to store: ${location.latitude}, ${location.longitude}")
     }
 }

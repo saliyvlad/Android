@@ -111,6 +111,7 @@ class Location : LocationListener, AppCompatActivity() {
 
     }
 
+
     private fun requestPermissions() {
         if (!android.os.Environment.isExternalStorageManager()) {
             val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
@@ -157,14 +158,27 @@ class Location : LocationListener, AppCompatActivity() {
     private fun isLocationEnabled(): Boolean{
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
     }
-    override fun onLocationChanged(location: Location) {
-        tvLat.setText(location.latitude.toString())
-        tvLon.setText(location.longitude.toString())
-        tvAlt.setText(location.altitude.toString())
-        tvTime.setText(location.time.toString())
+    override fun onLocationChanged(location: android.location.Location) {
+        // Обновление UI
+        tvLat.text = location.latitude.toString()
+        tvLon.text = location.longitude.toString()
+        tvAlt.text = location.altitude.toString()
+        tvTime.text = location.time.toString()
+
+        // === ВАЖНО: Сохраняем данные в общее хранилище ===
+        LocationDataStore.latitude = location.latitude
+        LocationDataStore.longitude = location.longitude
+        LocationDataStore.altitude = location.altitude
+        // Форматируем время в читаемый вид
+        val sdf = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.getDefault())
+        LocationDataStore.timestamp = sdf.format(java.util.Date(location.time))
+        // ===============================================
+
+        // Сохранение в файл (твой старый код)
         val file = File("/storage/emulated/0/Download/", "locations.json")
-        val exfile = File("/storage/emulated/0/Download/", "locations.json")
         CurrentLoc(location.latitude, location.longitude, location.altitude, location.time).saveInFile(file, this)
-        CurrentLoc(location.latitude, location.longitude, location.altitude, location.time).saveInFile(exfile, this)
+
+        // Лог для отладки
+        android.util.Log.d("LOCATION_UPDATE", "New coords saved to store: ${location.latitude}, ${location.longitude}")
     }
 }

@@ -56,9 +56,19 @@
             android:layout_width="match_parent"
             android:layout_height="74dp"
             android:layout_margin="10dp"
-            android:text="Клиент-сервер"
+            android:text="Клиент-сервер (ZeroMQ)"
             android:textColor="#FFFFFF"
             android:backgroundTint="#2E7D32" />
+
+        <Button
+            android:id="@+id/btnStartTelemetry"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:layout_margin="10dp"
+            android:text="Запустить Telemetry Service\n(CellInfo + GPS + ZMQ)"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#2E7D32"
+            android:elevation="4dp"/>
 
         <Button
             android:id="@+id/zaglushkaBTN"

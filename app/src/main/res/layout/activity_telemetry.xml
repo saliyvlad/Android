@@ -5,15 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="@android:color/black"
-    tools:context=".ZeroMQ">
+    tools:context=".Telemetry">
+
     <Button
-        android:id="@+id/startTradeWS"
+        android:id="@+id/btnToggleService"
         android:layout_width="345dp"
         android:layout_height="57dp"
         android:layout_marginBottom="336dp"
-        android:text="Обмен Hello с Сервером"
+        android:text="Запустить Telemetry Service"
         android:textColor="#FFFFFF"
         android:backgroundTint="#2E7D32"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,16 +21,16 @@
         app:layout_constraintHorizontal_bias="0.56"
         app:layout_constraintStart_toStartOf="parent" />
 
-
-
     <TextView
-        android:id="@+id/LogerTV"
+        android:id="@+id/tvTelemetryLog"
         android:layout_width="354dp"
         android:layout_height="195dp"
         android:background="#FFFFFF"
         android:fontFamily="serif"
         android:textColor="#000000"
-        android:textSize="20dp"
+        android:textSize="20sp"
+        android:scrollbars="vertical"
+        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
